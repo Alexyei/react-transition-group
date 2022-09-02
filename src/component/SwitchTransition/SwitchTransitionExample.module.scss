@@ -1,0 +1,136 @@
+.wrapper{
+  position: absolute;
+}
+.circle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px dashed blue;
+  //animation:show-loader 1s,  spin 4s linear 1s infinite;
+  //animation: spin 4s linear 1s infinite;
+
+
+}
+
+.circle.entering{
+  animation: show-loader 1s;
+}
+.circle.entered{
+  animation: spin 4s linear infinite;
+  //.inner_circle{
+  //  animation: spin 10s linear infinite reverse;
+  //}
+}
+.circle.exiting{
+  animation: show-loader 1s reverse;
+}
+.circle.exited{
+  //animation: spin 4s linear infinite;
+}
+
+.inner_circle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px dashed red;
+  //animation:show-loader 1s,  spin 4s linear 1s infinite;
+  //animation: spin 4s linear 1s infinite;
+
+
+}
+
+.inner_circle.entering{
+  animation: show-loader 1s;
+}
+.inner_circle.entered{
+  animation: spin 10s linear infinite reverse;
+}
+.inner_circle.exiting{
+  animation: show-loader 1s reverse;
+}
+.inner_circle.exited{
+  //animation: spin 4s linear infinite;
+}
+
+@keyframes show-loader {
+  0%{
+    opacity: 0;
+    top: 25%;
+  }
+  50%{
+    opacity:1;
+  }
+  100%{
+    top: 50%;
+  }
+}
+
+@keyframes spin {
+  0%{
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  100%{
+    transform: translate(-50%,-50%) rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse {
+  0%{
+    transform: translate(-50%,-50%) rotate(0deg);
+  }
+  100%{
+    transform: translate(-50%,-50%) rotate(-360deg);
+  }
+}
+
+@keyframes fade-in {
+  0%{
+
+    transform: translateX(-150px);
+  }
+  100%{
+
+    transform: translateX(0px);
+  }
+}
+
+
+@keyframes fade-out {
+  0%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateX(150px);
+  }
+}
+
+button.entered{
+  animation: fade-in 500ms forwards;
+  //opacity: 0;
+  //transform: translateX(-150%);
+}
+button.entering{
+  //opacity: 1;
+  //transform: translateX(0);
+  //transition: opacity 500ms, transform 500ms;
+}
+button.exiting{
+  //opacity: 1;
+  //transform: translateX(0);
+}
+button.exited{
+  animation: fade-out 500ms forwards;
+  //opacity: 0;
+  //transform: translateX(150px);
+  //transition: opacity 500ms, transform 500ms;
+}
