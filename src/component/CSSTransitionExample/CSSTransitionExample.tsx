@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import { CSSTransition } from 'react-transition-group';
 
 import classes from "./CSSTransitionExample.module.scss"
@@ -15,6 +15,7 @@ export default CSSTransitionExample;
 
 const Loader:FC<{loaderVisible: boolean}> = ({loaderVisible})=>{
 
+    const firstRender = useRef(true)
     function onEnterHandler(node:any, isAppearing:boolean){
         console.log("enter, "+isAppearing.toString())
     }
@@ -40,14 +41,21 @@ const Loader:FC<{loaderVisible: boolean}> = ({loaderVisible})=>{
     }
 
     useEffect(()=>{
-        console.log("UPDATED")
-        return ()=>console.log("UNMOUNT")
+        if (firstRender.current)
+        {
+            console.log("MOUNT")
+            firstRender.current = false;
+        }else{
+            console.log("UPDATED")
+        }
+
+        return ()=>{console.log("UNMOUNT");firstRender.current = true}
     })
 
     console.log("RENDER")
     return (
         <>
-            <CSSTransition onEnter={onEnterHandler} onEntering={onEnteringHandler} onEntered={onEnteredHandler} onExit={onExitHandler} onExiting={onExitingHandler} onExited={onExitedHandler} in={loaderVisible} timeout={1000} mountOnEnter={true} unmountOnExit={true} classNames={{enterActive: classes.entering, enterDone: classes.entered, exitActive: classes.exiting, exitDone: classes.exited}}>
+            <CSSTransition mountOnEnter={true} unmountOnExit={true} onEnter={onEnterHandler} onEntering={onEnteringHandler} onEntered={onEnteredHandler} onExit={onExitHandler} onExiting={onExitingHandler} onExited={onExitedHandler} in={loaderVisible} timeout={1000}  classNames={{enterActive: classes.entering, enterDone: classes.entered, exitActive: classes.exiting, exitDone: classes.exited}}>
                 {state=>{
                     return (
                         <>

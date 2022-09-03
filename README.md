@@ -1,46 +1,126 @@
-# Getting Started with Create React App
+#react-transition-group
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Документация](http://reactcommunity.org/react-transition-group/transition)
+[GitHub](https://github.com/reactjs/react-transition-group)
 
-## Available Scripts
+## Transition и CSSTransition
 
-In the project directory, you can run:
+Компоненты Transition и CSSTransition позволяют описать переход от одного состояние дочернего компонента к другому с течением времени с помощью простого декларативного API.
+Чаще всего они используются для анимации монтажа и демонтажа компонента, но также может использоваться для описания переходных состояний на месте.
 
-### `npm start`
+Они принимают единственный дочерний элемент, и устанавливают для него стили состояния.
+Компонент Transition задаёт стили напрямую через атрибут style.
+Компонент CSSTransition задаёт стили с помощью классов через атрибут classNames.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Существует 6 основных состояний перехода CSSTransition (есть ешё appear но здесь не рассматривается )
+1. enter
+2. entering
+3. entered
+4. exit
+5. exiting
+6. exited
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+У Transition тоже 6 состояний, но стили можно добавлять только к 4. (к enter и exit нельзя). Поэтому обычно Transition не применяют на практике.
 
-### `npm test`
+Переключение состояния перехода осуществляется через props in. Также используется props timeout.
+Возможные сценарии переключения состояния:
+1. дефолтный in: false. => Ребёнок внутри Transition (или CSSTransition) не смонтирован.
+1.1 Переключение с false на true. => enter => монитрование компонента => entering => (через timeout) => entered
+2. дефолтный in: true. => Ребёнок внутри Transition (или CSSTransition) смонтирован, если свойство mountOnEnter == true.
+2.1 Переключение с true на false. => exit => перемонтирование компонента (???) => exiting => (через timeout) => exited => компонент (ребёнок) размонитруется, если unmountOnExit == true.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Timeout используется только при переходе из entering => entered и exiting => exited
+Стили компонента задаются через CSS классы (CSSTransition)
+```CSS
 
-### `npm run build`
+@keyframes fade-in {
+  0%{
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    transform: translateX(-150px);
+  }
+  100%{
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    transform: translateX(0px);
+  }
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+@keyframes fade-out {
+  0%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateX(150px);
+  }
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+button.enter{
+    animation: fade-in 500ms forwards;
+}
+button.entering{
+}
+button.exiting{
+}
+button.exit{
+    animation: fade-out 500ms forwards;
+}
+```
+альтернатива:
+```CSS
+button.enter__styles{
+    opacity: 0;
+    transform: translateX(-150%);
+}
+button.entering__styles{
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+}
+button.exiting__styles{
+    opacity: 1;
+    transform: translateX(0);
+}
+button.exit__styles{
+    opacity: 0;
+    transform: translateX(150px);
+    transition: opacity 500ms, transform 500ms;
+}
+```
+Неправильный вариант:
+```CSS
+button.enter{
+    
+}
+button.entering{
+    animation: fade-in 500ms forwards;
+}
+button.exiting{
+    animation: fade-out 500ms forwards;
+}
+button.exit{
+    
+}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Третий вариант неправильный, так как: к нопке применяются стили из enter => она монтируется => к кнопке применяются стили из entering => кнопка делает резкий скачок влево
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## SwitchTransition
+**CSSTransition используется для анимирования одного элемента.**
+**SwitchTransition используется для замены одного элемента на другой.**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Его ребёнком является CSSTransition (или Transition)
+Он выполняет переключение состояния CSSTransition (или Transition) через props key и mode
+Свойство key может быть чем угодно, когда оно меняется переход срабатывает (согласно режиму mode).
+У mode есть только 2 значения in-out и out-in.
 
-## Learn More
+По умолчанию ребёнок CSSTransition уже смонтирован.
+1. mode == out-in. key changed => старый элемент удаляется => старый элемент переход exit => добавляется новый эелемент => новый элемент переход enter => финальное сотояние entered (новый элемент)
+2. mode == in-out. key changed => добавляется новый эелемент => новый элемент переход enter => старый элемент удаляется => старый элемент переход exit => финальное сотояние entered (новый элемент)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+аналог timeout
+addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
+сделать коипию CSSTransition но Transition
+Правильные имена для файлов
+TransitionGroup

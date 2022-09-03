@@ -1,15 +1,21 @@
 import React from 'react';
 import CSSTransitionExample from "./component/CSSTransitionExample/CSSTransitionExample";
 import FirstExample from "./component/FirstExample/FirstExample";
-import SwitchTransitionExample from "./component/SwitchTransition/SwitchTransitionExample";
+import SwitchTransitionExample, {
+    SwitchTransitionExample2,
+    SwitchTransitionExample3, SwitchTransitionExample4
+} from "./component/SwitchTransition/SwitchTransitionExample";
 
 
 function App() {
   return (
     <div className="App">
         {/*<FirstExample/>*/}
-        <CSSTransitionExample/>
+        {/*<CSSTransitionExample/>*/}
         {/*<SwitchTransitionExample/>*/}
+        {/*<SwitchTransitionExample2/>*/}
+        {/*<SwitchTransitionExample3/>*/}
+        <SwitchTransitionExample4/>
     </div>
   );
 }
