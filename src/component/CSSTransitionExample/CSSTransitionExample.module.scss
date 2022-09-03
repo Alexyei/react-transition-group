@@ -26,7 +26,7 @@
   //}
 }
 .circle.exiting{
-  animation: show-loader 1s reverse;
+  animation: show-loader 1s reverse forwards;
 }
 .circle.exited{
   //animation: spin 4s linear infinite;
@@ -54,7 +54,7 @@
   animation: spin 10s linear infinite reverse;
 }
 .inner_circle.exiting{
-  animation: show-loader 1s reverse;
+  animation: show-loader 1s reverse forwards;
 }
 .inner_circle.exited{
   //animation: spin 4s linear infinite;
