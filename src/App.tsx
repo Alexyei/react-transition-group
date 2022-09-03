@@ -8,8 +8,8 @@ function App() {
   return (
     <div className="App">
         {/*<FirstExample/>*/}
-        {/*<CSSTransitionExample/>*/}
-        <SwitchTransitionExample/>
+        <CSSTransitionExample/>
+        {/*<SwitchTransitionExample/>*/}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {CSSTransition, SwitchTransition, TransitionGroup} from 'react-transition-group';
 
 import classes from "./SwitchTransitionExample.module.scss"
@@ -11,8 +11,38 @@ const SwitchTransitionExample:FC = ()=>{
     // </div>)
 
     const [mode, setMode] = useState<"out-in"|"in-out">("out-in");
-    const [toggle, setToggle] = useState(true);
+    const [toggle, setToggle] = useState(false);
 
+    function onEnterHandler(node:any, isAppearing:boolean){
+        console.log("enter, "+isAppearing.toString())
+    }
+
+    function onEnteringHandler(node:any, isAppearing:boolean){
+        console.log("entering, "+isAppearing.toString())
+    }
+
+    function onEnteredHandler(node:any, isAppearing:boolean){
+        console.log("ENTERED, "+isAppearing.toString())
+    }
+
+    function onExitHandler(){
+        console.log("exit")
+    }
+
+    function onExitingHandler(){
+        console.log("exiting")
+    }
+
+    function onExitedHandler(){
+        console.log("EXITED")
+    }
+
+    useEffect(()=>{
+        console.log("UPDATED")
+        return ()=>console.log("UNMOUNT")
+    })
+
+    console.log("RENDER")
     return (
         <div style={{display: 'flex', flexDirection: 'column', alignItems:'center',justifyContent:'center'}}>
             <div>Mode:
@@ -22,7 +52,7 @@ const SwitchTransitionExample:FC = ()=>{
             <input checked={mode === "in-out"}onChange={(e)=>setMode(e.target.value as any)}  id={"in-out"} type={"radio"} name={"radio"} value={"in-out"}/>
             </div>
             <SwitchTransition mode={mode}>
-                <CSSTransition key={toggle.toString()} timeout={500} classNames={{enterActive: classes.entering, enter: classes.entered, exitActive: classes.exiting, exit: classes.exited}}>
+                <CSSTransition onExited={onExitedHandler} onExiting={onExitingHandler} onExit={onExitHandler} onEntered={onEnteredHandler} onEntering={onEnteringHandler} onEnter={onEnterHandler} key={toggle.toString()} timeout={500} classNames={{enterActive: classes.entering, enter: classes.entered, exitActive: classes.exiting, exit: classes.exited}}>
             <button  onClick={()=>setToggle(prev=>!prev)}>
                 {toggle ? "HELLO" : "GOODBYE"}
             </button>
