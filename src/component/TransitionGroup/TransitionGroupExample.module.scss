@@ -20,55 +20,35 @@
     transform: translateX(150px);
   }
 }
-
-button.enter{
+li.enter{
   animation: fade-in 500ms forwards;
   //opacity: 0;
   //transform: translateX(-150%);
   color: red;
 }
-button.entering{
+li.entering{
   //opacity: 1;
   //transform: translateX(0);
   //transition: opacity 500ms, transform 500ms;
 
   color: green;
 }
-button.entered{
+li.entered{
   color: blue;
 }
-button.exit{
+li.exit{
   animation: fade-out 500ms forwards;
   //opacity: 0;
   //transform: translateX(150px);
   //transition: opacity 500ms, transform 500ms;
   color: yellow;
 }
-button.exiting{
+li.exiting{
   //opacity: 1;
   //transform: translateX(0);
   color:orange;
 }
 
-button.exited{
+li.exited{
   color: pink
-}
-
-button.enter__styles{
-  opacity: 0;
-  transform: translateX(-150%);
-}
-button.entering__styles{
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 500ms, transform 500ms;
-}
-button.exiting__styles{
-  opacity: 1;
-  transform: translateX(0);
-}
-button.exit__styles{
-  opacity: 0;
-  transform: translateX(150px);
-  transition: opacity 500ms, transform 500ms;
 }

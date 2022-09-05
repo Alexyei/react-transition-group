@@ -1,0 +1,109 @@
+.container{
+  background-color: rgb(226, 232, 240);
+  color: rgb(31, 41, 55);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  //bg-gray-300 text-gray-800 antialiased min-h-screen flex flex-col justify-end
+}
+
+.list{
+  padding: 0;
+  position: absolute;
+  list-style-type: none;
+  margin: -8rem 0 0;
+  bottom: 124px;
+  //margin-top: 0.5rem;
+  //className="absolute -mt-32 space-y-2" style="bottom: 124px"
+  li{
+    margin-top: 0.5rem;
+  }
+}
+
+.footer{
+  background-color: rgb(203, 213, 224);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  //bg-gray-400 px-8 py-8 flex justify-center
+}
+
+.card{
+  position: relative;
+  background: white;
+  width: 20rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+
+  border-width: 1px;
+  border-radius: 0.5rem;
+  border-color: #e2e8f0;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  //margin-top: -4rem;
+  line-height: 1.5;
+  color:  #2d3748;
+  //bg-white hover:bg-gray-100 w-80 shadow-md border rounded-lg px-4 py-4 flex items-center -mt-16
+  img{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+  }
+
+  .text__container{
+    margin-left: 1rem;
+  }
+  .subject{
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .sender{
+    text-align: left;
+    line-height: 1.5;
+    color: #4a5568;
+    font-size: 16px;
+  }
+}
+.card.first{
+  margin-top: -4rem
+}
+.card:hover{
+  background-color: rgb(243 244 246);
+}
+
+
+li.enter{
+  //transform: translate(0px, 100px) rotate(0deg);
+  transform: translate(0px, 100px) rotate(0deg);
+
+  //opacity: 0;
+}
+
+li.entering{
+  transition: all 15s ease-in;
+  //opacity: 1;
+  transform: translate(20px, 0px) rotate(20deg) !important;
+
+}
+
+li.entered{
+
+
+}
+
+li.exit{
+  //transition: all .15s ease-in;
+  //opacity: 1;
+}
+
+li.exiting{
+  transform: translate(0px, 100px) rotate(0deg) !important;
+  //opacity: 0;
+}
+
+li.exited{
+
+}

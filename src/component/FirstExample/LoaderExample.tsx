@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
-import classes from "./FirstExample.module.scss"
-const FirstExample:FC = ()=>{
+import classes from "./LoaderExample.module.scss"
+const LoaderExample:FC = ()=>{
     const [loaderVisible, setLoaderVisible] = useState(false);
     return (<div>
         <button onClick={()=>setLoaderVisible(prev=>!prev)}>{loaderVisible ? "hide":"show"}</button>
@@ -8,4 +8,4 @@ const FirstExample:FC = ()=>{
     </div>)
 }
 
-export default FirstExample;
+export default LoaderExample;

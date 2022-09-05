@@ -1,8 +1,8 @@
 import {FC, useEffect, useRef, useState} from "react";
 import { CSSTransition } from 'react-transition-group';
 
-import classes from "./CSSTransitionExample.module.scss"
-const CSSTransitionExample:FC = ()=>{
+import classes from "./CSSTransitionLoaderExample.module.scss"
+const CSSTransitionLoaderExample:FC = ()=>{
     const [loaderVisible, setLoaderVisible] = useState(false);
     return (<div>
         <button onClick={()=>setLoaderVisible(prev=>!prev)}>{loaderVisible ? "hide":"show"}</button>
@@ -10,7 +10,7 @@ const CSSTransitionExample:FC = ()=>{
     </div>)
 }
 
-export default CSSTransitionExample;
+export default CSSTransitionLoaderExample;
 
 
 const Loader:FC<{loaderVisible: boolean}> = ({loaderVisible})=>{

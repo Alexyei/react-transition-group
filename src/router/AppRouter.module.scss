@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+}
+
+.page {
+  padding: 15px;
+  left: 15px;
+  right: 15px;
+  top: 15px;
+  bottom:15px;
+
+}
+
+.page.enter {
+  opacity: 0;
+  transform: scale(1.4);
+}
+
+.page.enter__active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page.exit {
+  position: absolute;
+  //opacity: 1;
+  //transform: scale(1);
+  opacity: 0;
+}
+
+.page.exit__active {
+  //opacity: 0;
+  //transform: scale(0.7);
+  //transition: opacity 300ms, transform 300ms;
+}
+
+.slide.enter,
+.slide.exit {
+  transition: transform 1000ms ease-out;
+}
+
+.slide.enter {
+  transform: translateX(100%);
+}
+
+.slide.enter__active {
+  transform: translateX(0%);
+}
+
+.slide.exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateX(0%);
+}
+
+.slide.exit__active {
+  transform: translateX(-100%);
+}

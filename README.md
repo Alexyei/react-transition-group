@@ -119,8 +119,8 @@ button.exit{
 1. mode == out-in. key changed => старый элемент удаляется => старый элемент переход exit => добавляется новый эелемент => новый элемент переход enter => финальное сотояние entered (новый элемент)
 2. mode == in-out. key changed => добавляется новый эелемент => новый элемент переход enter => старый элемент удаляется => старый элемент переход exit => финальное сотояние entered (новый элемент)
 
-аналог timeout
-addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
-сделать коипию CSSTransition но Transition
-Правильные имена для файлов
-TransitionGroup
+
+### аналог timeout
+пропс timeout можно заменить нас ледующий пропс addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}, который работает по CSS событию. Такой подход работает только если стили заданы свойствами а не через animation.
+
+## TransitionGroup
