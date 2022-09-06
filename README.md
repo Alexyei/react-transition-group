@@ -20,8 +20,6 @@
 5. exiting
 6. exited
 
-У Transition тоже 6 состояний, но стили можно добавлять только к 4. (к enter и exit нельзя). Поэтому обычно Transition не применяют на практике.
-
 Переключение состояния перехода осуществляется через props in. Также используется props timeout.
 Возможные сценарии переключения состояния:
 1. дефолтный in: false. => Ребёнок внутри Transition (или CSSTransition) не смонтирован.
@@ -31,6 +29,16 @@
 
 Timeout используется только при переходе из entering => entered и exiting => exited
 Стили компонента задаются через CSS классы (CSSTransition)
+
+У Transition тоже 6 состояний, но стили можно добавлять только к 4. (к enter и exit нельзя). Transition пременяют там где не возможно создать классы для динамических стилей (FanList например).
+Поэтому цепочки выглядят немного по другому:
+1. дефолтный in: false. => Ребёнок внутри Transition (или CSSTransition) не смонтирован.
+1.1 Переключение с false на true. => **exited** => монитрование компонента => entering => (через timeout) => entered
+2. дефолтный in: true. => Ребёнок внутри Transition (или CSSTransition) смонтирован, если свойство mountOnEnter == true.
+2.1 Переключение с true на false. => **entered** => перемонтирование компонента (???) => exiting => (через timeout) => exited => компонент (ребёнок) размонитруется, если unmountOnExit == true.
+
+
+Поэтому цепочки выглядят так:
 ```CSS
 
 @keyframes fade-in {
@@ -109,6 +117,7 @@ button.exit{
 ## SwitchTransition
 **CSSTransition используется для анимирования одного элемента.**
 **SwitchTransition используется для замены одного элемента на другой.**
+**TransitionGroup используется для добавления или удаления элементов из массива**
 
 Его ребёнком является CSSTransition (или Transition)
 Он выполняет переключение состояния CSSTransition (или Transition) через props key и mode
@@ -124,3 +133,7 @@ button.exit{
 пропс timeout можно заменить нас ледующий пропс addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}, который работает по CSS событию. Такой подход работает только если стили заданы свойствами а не через animation.
 
 ## TransitionGroup
+При добавлении элемента в массив срабатывает цепочка ->enter -> entering -> entered (для CSSTransition)
+При добавлении элемента в массив срабатывает цепочка ->exited -> entering -> entered (для Transition)
+При удалении элемента в массив срабатывает цепочка ->exit -> exiting -> exited (для CSSTransition)
+При удалении элемента в массив срабатывает цепочка ->entered -> exiting -> exited (для Transition)

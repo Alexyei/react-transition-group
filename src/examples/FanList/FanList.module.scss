@@ -52,6 +52,17 @@
     height: 2.5rem;
     border-radius: 9999px;
   }
+  .plus{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 2px solid #2d3748;
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .text__container{
     margin-left: 1rem;
@@ -72,6 +83,10 @@
 }
 .card:hover{
   background-color: rgb(243 244 246);
+  .plus{
+    transition: all 0.5s;
+    transform: rotate(45deg);
+  }
 }
 
 

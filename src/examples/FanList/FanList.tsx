@@ -1,9 +1,11 @@
-import {FC, ReactNode, useState} from "react";
+import {createRef, FC, ReactNode, useState} from "react";
 import classes from './FanList.module.scss';
 import {CSSTransition, Transition} from "react-transition-group";
+import useOutsideClickHandler from "../../hooks/useOutsideClickHandler";
 
 const classesArray = [
-    {x: 16, rotate: 12},
+    {x:20,rotate: 14},
+    {x: 15, rotate: 12},
     {x: 10, rotate: 10},
     {x: 6, rotate: 8},
     {x: 4, rotate: 6},
@@ -68,6 +70,16 @@ const Card: FC<{ mailData: typeof mockData[number], isFirst:boolean, onClick:()=
         </div>
     </button>)
 }
+
+const MoreCardButton: FC<{  onClick:()=>void }> = ({ onClick}) => {
+    return (<button onClick={onClick} className={classes.card}>
+        <div className={classes.plus}>+</div>
+        <div className={classes.text__container}>
+            <div className={classes.subject}>Больше...</div>
+        </div>
+    </button>)
+}
+
 
 const ListItem: FC<{ children: ReactNode, styles: typeof classesArray[number], id:number, isVisible:boolean }> = ({children, styles,id,isVisible}) => {
     return (
@@ -174,7 +186,7 @@ const ListItemTransition: FC<{ children: ReactNode, styles: typeof classesArray[
                        onExiting={()=>console.log("ENTERING")}
                        onExited={()=>console.log("ENTERED")}
 
-        >{state=>{ console.log("state");console.log(state);console.log('--------');return(
+        >{state=>{ console.log(state);console.log('--------');return(
 
             //style={{...enterStyle,...transitionStyles[state]}}
             <li style={{...transitionStyles[state]}} >
@@ -189,15 +201,18 @@ const FanList: FC = () => {
     const anotherElements = mockData.slice(0, -1)
 
     const [visible, setVisible] = useState(false)
+    const divRef = createRef<HTMLDivElement>();
+    useOutsideClickHandler(divRef,()=>setVisible(false))
     return (
         <div className={classes.container}>
-            <div className={classes.footer}>
+            <div ref={divRef} className={classes.footer}>
                 {
                     // visible &&
-                <ul className={classes.list}>
+                <ul  className={classes.list}>
                     {/*<TransitionGroup component={ul}>*/}
+                    <ListItemTransition styles={classesArray[0]} id={-1} isVisible={visible}><MoreCardButton onClick={()=>alert('more')}/></ListItemTransition>
                     {anotherElements.map((el,index)=>{
-                        return <ListItemTransition isVisible={visible} id={el.id} key={el.id} styles={classesArray[index]}><Card onClick={ ()=>""}  isFirst={false} mailData={el}/></ListItemTransition>
+                        return <ListItemTransition isVisible={visible} id={el.id} key={el.id} styles={classesArray[index+1]}><Card onClick={ ()=>""}  isFirst={false} mailData={el}/></ListItemTransition>
                     })}
                     {/*</TransitionGroup>*/}
                 </ul>}
