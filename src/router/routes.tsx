@@ -7,6 +7,7 @@ import SwitchTransitionExample, {
 } from "../component/SwitchTransition/SwitchTransitionExample";
 import SwitchTransitionExampleCSSTransitionClasses from "../component/SwitchTransition/SwitchTransitionExample";
 import FanList from "../examples/FanList/FanList";
+import BubbleLoading from "../examples/BubleLoading/BubbleLoading";
 
 export const publicRoutes= [
     {path: '/',element: (<TransitionGroupExample/>),linkName:'List'},
@@ -17,5 +18,6 @@ export const publicRoutes= [
     {path: '/transition',element:(<SwitchTransitionExampleTransition/>),linkName:'transition'},
     {path: '/wrong',element:(<SwitchTransitionExampleCSSTransitionWrong/>),linkName:'wrong'},
     {path: '/fan-list',element: (<FanList/>), linkName: 'Fan List'},
+    {path: '/bubble',element: (<BubbleLoading/>), linkName: 'Bubble Loading'},
     {path: '*',element:(<div>404 NOT FOUND</div>)}
 ]
